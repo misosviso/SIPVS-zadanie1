@@ -9,40 +9,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sipvs.zadanie1.models.Form;
+import com.sipvs.zadanie1.models.XMLGenerator;
 
 @Controller
 public class OrderController {
 
-    // Zobrazenie stranky (index.html)
+    // View
     @GetMapping("/")
-	public String home(Model model) {
+    public String home(Model model) {
         System.out.println("Viewed");
         Form form = new Form();
         model.addAttribute("form", form);
-		return "index";
-	}
-
-    // Reaguje na submit
-    @RequestMapping(value = "/", method = RequestMethod.POST, params = "GenerateXML")
-    public String submit(@ModelAttribute Form form, Model model) {
-        System.out.println("Generating XML");
-        model.addAttribute("form", form);
         return "index";
     }
 
-    // Reaguje na validate
-    @RequestMapping(value = "/", method = RequestMethod.POST, params = "ValidateXML")
+    // Generate XML
+    @PostMapping("/generate")
+    public String generate(@ModelAttribute Form form, Model model) {
+        System.out.println("Generated");
+        model.addAttribute("form", form);
+        System.out.println(form.getContent());
+
+        // Generate XML
+        XMLGenerator.generate(form);
+        
+
+        return "index";
+    }
+
+    // Validate XML
+    @PostMapping("/validate")
     public String validate(@ModelAttribute Form form, Model model) {
+        System.out.println("Validated");
         model.addAttribute("form", form);
-        System.out.println("Validation");
+        System.out.println(form.getContent());
         return "index";
     }
 
-    // Reaguje na html
-    @RequestMapping(value = "/", method = RequestMethod.POST, params = "GenerateHTML")
+    // Generate HTML
+    @PostMapping("/html")
     public String html(@ModelAttribute Form form, Model model) {
+        System.out.println("HTML");
         model.addAttribute("form", form);
-        System.out.println("Generating HTML");
+        System.out.println(form.getContent());
         return "index";
     }
 

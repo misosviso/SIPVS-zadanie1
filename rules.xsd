@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="restarant-reviews">
+
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" minOccurs="1" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="firstName" type="xs:string" minOccurs="1"
+                                maxOccurs="1" />
+                            <xs:element name="lastName" type="xs:string" minOccurs="1" maxOccurs="1" />
+                            <xs:element name="emailAddress" type="xs:string" minOccurs="1"
+                                maxOccurs="1" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="review" minOccurs="1" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="restaurantAddress" type="xs:string" minOccurs="1"
+                                maxOccurs="1" />
+                            <xs:element name="restaurantRating" type="xs:int" minOccurs="1"
+                                maxOccurs="1" />
+                            <xs:element name="restaurantComment" type="xs:string" minOccurs="1"
+                                maxOccurs="1" />
+                            <xs:element name="visitDate" type="xs:date" minOccurs="1" maxOccurs="1" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+
+    </xs:element>
+</xs:schema>

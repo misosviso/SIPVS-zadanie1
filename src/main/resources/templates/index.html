@@ -1,21 +1,31 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="utf-8"/>
-<title>Spring Boot Web App using Spring MVC and Spring Data JPA</title>
+    <meta charset="utf-8" />
+    <title>Spring Boot Web App using Spring MVC and Spring Data JPA</title>
 </head>
+
 <body>
-	<h1>Spring Boot Web App using Spring MVC and Spring Data JPA</h1>
-	<hr />
+    <h1>Spring Boot Web App using Spring MVC and Spring Data JPA</h1>
+    <hr />
 
     <!-- Generate XML from form to static path -->
-	<form action="#" th:action="@{/}" th:object="${form}" method="post" >
-        <p>Id: <input type="text" th:field="*{id}" /></p>
-        <p>Message: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" name="GenerateXML" value="GenerateXML" /></p>
-        <p><input type="submit" name="ValidateXML"value="ValidateXML" /></p>
-        <p><input type="submit" name="GenerateHTML"value="GenerateHTML"/></p>
+    <form action="#" th:action="@{/}" th:object="${form}" method="post">
+        <p>First Name: <input type="text" th:field="*{firstName}" /></p>
+        <p>Last Name: <input type="text" th:field="*{lastName}" /></p>
+        <p>Email Address: <input type="text" th:field="*{emailAddreess}" /></p>
+
+        <!-- Repeating section with Restaurant Address, Rating, Comment and Visit date -->
+        <p>Restaurant Address: <input type="text" th:field="*{restaurantAddress}" /></p>
+        <p>Restaurant Rating: <input type="text" th:field="*{restaurantRating}" /></p>
+        <p>Restaurant Comment: <input type="text" th:field="*{restaurantComment}" /></p>
+        <p>Visit Date: <input type="date" th:field="*{visitDate}" /></p>
+
+        <p><input type="submit" value="Generate XML" formaction="/generate" /></p>
+        <p><input type="submit" value="Validate XML" formaction="/validate" /></p>
+        <p><input type="submit" value="Generate HTML" formaction="/html" /></p>
     </form>
 </body>
+
 </html>
