@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Spring Boot Web App using Spring MVC and Spring Data JPA</title>
+</head>
+<body>
+	<h1>Spring Boot Web App using Spring MVC and Spring Data JPA</h1>
+	<hr />
+
+    <!-- Generate XML from form to static path -->
+	<form action="#" th:action="@{/}" th:object="${form}" method="post">
+        <p>Id: <input type="text" th:field="*{id}" /></p>
+        <p>Message: <input type="text" th:field="*{content}" /></p>
+        <p><input type="submit" value="Submit" /></p>
+    </form>
+
+    <!-- Validate XML from static path -->
+    <!-- <a data-method="post" href="/validate">Validate</a> -->
+    <form action="#" th:action="@{/validate}" method="post">
+        <p><input type="submit" value="Validate" /></p>
+    </form>
+    
+
+    <!-- Generate HTML from XML from static path-->
+    <a data-method="post" href="/html">Generate HTML</a>
+
+
+</body>
+</html>
