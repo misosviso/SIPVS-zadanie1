@@ -10,22 +10,12 @@
 	<hr />
 
     <!-- Generate XML from form to static path -->
-	<form action="#" th:action="@{/}" th:object="${form}" method="post">
+	<form action="#" th:action="@{/}" th:object="${form}" method="post" >
         <p>Id: <input type="text" th:field="*{id}" /></p>
         <p>Message: <input type="text" th:field="*{content}" /></p>
-        <p><input type="submit" value="Submit" /></p>
+        <p><input type="submit" name="GenerateXML" value="GenerateXML" /></p>
+        <p><input type="submit" name="ValidateXML"value="ValidateXML" /></p>
+        <p><input type="submit" name="GenerateHTML"value="GenerateHTML"/></p>
     </form>
-
-    <!-- Validate XML from static path -->
-    <!-- <a data-method="post" href="/validate">Validate</a> -->
-    <form action="#" th:action="@{/validate}" method="post">
-        <p><input type="submit" value="Validate" /></p>
-    </form>
-    
-
-    <!-- Generate HTML from XML from static path-->
-    <a data-method="post" href="/html">Generate HTML</a>
-
-
 </body>
 </html>

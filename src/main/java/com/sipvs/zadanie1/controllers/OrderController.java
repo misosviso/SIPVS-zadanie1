@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sipvs.zadanie1.models.Form;
 
@@ -21,7 +23,7 @@ public class OrderController {
 	}
 
     // Reaguje na submit
-    @PostMapping("/")
+    @RequestMapping(value = "/", method = RequestMethod.POST, params = "GenerateXML")
     public String submit(@ModelAttribute Form form, Model model) {
         System.out.println("Generating XML");
         model.addAttribute("form", form);
@@ -29,15 +31,18 @@ public class OrderController {
     }
 
     // Reaguje na validate
-    @PostMapping("/validate")
-    public void validate() {
+    @RequestMapping(value = "/", method = RequestMethod.POST, params = "ValidateXML")
+    public String validate(@ModelAttribute Form form, Model model) {
+        model.addAttribute("form", form);
         System.out.println("Validation");
+        return "index";
     }
 
     // Reaguje na html
-    @PostMapping("/html")
-    public void html() {
-        System.out.println("Genrating HTML");
+    @RequestMapping(value = "/", method = RequestMethod.POST, params = "GenerateHTML")
+    public void html(@ModelAttribute Form form, Model model) {
+        model.addAttribute("form", form);
+        System.out.println("Generating HTML");
     }
 
 }
