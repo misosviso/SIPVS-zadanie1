@@ -40,9 +40,10 @@ public class OrderController {
 
     // Reaguje na html
     @RequestMapping(value = "/", method = RequestMethod.POST, params = "GenerateHTML")
-    public void html(@ModelAttribute Form form, Model model) {
+    public String html(@ModelAttribute Form form, Model model) {
         model.addAttribute("form", form);
         System.out.println("Generating HTML");
+        return "index";
     }
 
 }
