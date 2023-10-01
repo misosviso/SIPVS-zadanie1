@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">    
+    <element name="form">
+        <complexType>
+            <sequence>
+                <element name="email-address" type="string"/>
+                <element name="first-name" type="string"/>
+                <element name="last-name" type="string"/>
+                <element name="restaurant-address" type="string"/>
+                <element name="restaurant-comment" type="string"/>
+                <element name="restaurant-rating" type="integer"/>
+                <element name="visit-date" type="date"/>
+            </sequence>
+        </complexType>
+    </element>
+</schema>

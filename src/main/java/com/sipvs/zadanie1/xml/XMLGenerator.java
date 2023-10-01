@@ -1,8 +1,11 @@
-package com.sipvs.zadanie1.models;
+package com.sipvs.zadanie1.xml;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+
+import com.sipvs.zadanie1.models.Form;
+
 import java.io.File;
 
 public class XMLGenerator {

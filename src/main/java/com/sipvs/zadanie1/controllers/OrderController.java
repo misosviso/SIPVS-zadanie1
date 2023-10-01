@@ -5,11 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sipvs.zadanie1.models.Form;
-import com.sipvs.zadanie1.models.XMLGenerator;
+import com.sipvs.zadanie1.xml.XMLGenerator;
+import com.sipvs.zadanie1.xml.XSDValidator;
 
 @Controller
 public class OrderController {
@@ -32,7 +31,6 @@ public class OrderController {
 
         // Generate XML
         XMLGenerator.generate(form);
-        
 
         return "index";
     }
@@ -43,6 +41,9 @@ public class OrderController {
         System.out.println("Validated");
         model.addAttribute("form", form);
         System.out.println(form.getContent());
+
+        XSDValidator.validateXMLSchema();
+
         return "index";
     }
 
