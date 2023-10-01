@@ -13,13 +13,13 @@
         <rating>
             <restaurant-address>Handlova</restaurant-address>
             <restaurant-comment>uuu</restaurant-comment>
-            <restaurant-rating>10</restaurant-rating>
+            <restaurant-rating>3</restaurant-rating>
             <visit-date>2023-11-24</visit-date>
         </rating>
         <rating>
             <restaurant-address>Dubnica</restaurant-address>
             <restaurant-comment>www</restaurant-comment>
-            <restaurant-rating>7</restaurant-rating>
+            <restaurant-rating>0</restaurant-rating>
             <visit-date>2023-11-11</visit-date>
         </rating>
     </ratings>
