@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <form>
-    <email-address>edkaedooaedk</email-address>
-    <first-name>aaaaa</first-name>
-    <last-name>ifiefiidekde</last-name>
-    <restaurant-address>edo0doae0dl</restaurant-address>
-    <restaurant-comment>ed,aeodoaed</restaurant-comment>
-    <restaurant-rating>0</restaurant-rating>
-    <visit-date/>
+    <email-address>janko@hrasko.sk</email-address>
+    <first-name>Janko</first-name>
+    <last-name>Hraško</last-name>
+    <restaurant-address>Hlavná 3, Horná Dolná</restaurant-address>
+    <restaurant-comment>ok</restaurant-comment>
+    <restaurant-rating>5</restaurant-rating>
+    <visit-date>2023-09-07</visit-date>
 </form>

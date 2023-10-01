@@ -16,7 +16,7 @@ public class Form {
   private String restaurantAddress;
   private int restaurantRating;
   private String restaurantComment;
-  private Date visitDate;
+  private Date visitDate = new Date(System.currentTimeMillis());
 
   public String getFirstName() {
     return firstName;

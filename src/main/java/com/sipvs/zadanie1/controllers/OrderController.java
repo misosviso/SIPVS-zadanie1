@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.sipvs.zadanie1.models.Form;
 import com.sipvs.zadanie1.xml.XMLGenerator;
 import com.sipvs.zadanie1.xml.XSDValidator;
+import com.sipvs.zadanie1.xml.XSLViewer;
 
 @Controller
 public class OrderController {
@@ -51,8 +52,7 @@ public class OrderController {
     @PostMapping("/html")
     public String html(@ModelAttribute Form form, Model model) {
         System.out.println("HTML");
-        model.addAttribute("form", form);
-        System.out.println(form.getContent());
+        XSLViewer.displayXSL();
         return "index";
     }
 
