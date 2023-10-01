@@ -4,6 +4,9 @@ import java.sql.Date;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.sipvs.zadanie1.xml.DateAdapter;
 
 @XmlRootElement(name = "form")
 public class Form {
@@ -74,6 +77,7 @@ public class Form {
   }
 
   @XmlElement(name = "visit-date")
+  @XmlJavaTypeAdapter(DateAdapter.class)
   public void setVisitDate(Date visitDate) {
     this.visitDate = visitDate;
   }
