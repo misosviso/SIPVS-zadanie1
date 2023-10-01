@@ -1,6 +1,9 @@
 package com.sipvs.zadanie1.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.xml.sax.SAXException;
 
 import com.sipvs.zadanie1.models.Form;
+import com.sipvs.zadanie1.models.Rating;
 import com.sipvs.zadanie1.xml.XMLGenerator;
 import com.sipvs.zadanie1.xml.XSDValidator;
 import com.sipvs.zadanie1.xml.XSLViewer;
@@ -22,6 +26,7 @@ public class OrderController {
     public String home(Model model) {
         System.out.println("Viewed");
         Form form = new Form();
+        form.setRatings(Arrays.asList(new Rating()));
         model.addAttribute("form", form);
         return "index";
     }
@@ -33,8 +38,22 @@ public class OrderController {
         model.addAttribute("form", form);
         System.out.println(form.getContent());
 
-        // Generate XML
+        // Generate XML 
         XMLGenerator.generate(form);
+
+        return "index";
+    }
+
+    // Add rating
+    @PostMapping("/add")
+    public String add(@ModelAttribute Form form, Model model) {
+        System.out.println("Added");
+        List<Rating> ratings = form.getRatings();
+        ratings.add(new Rating());
+
+        model.addAttribute("form", form);
+
+        System.out.println(form.getContent());
 
         return "index";
     }
@@ -45,8 +64,6 @@ public class OrderController {
         System.out.println("Validated");
         model.addAttribute("form", form);
         System.out.println(form.getContent());
-
-
 
         try {
             XSDValidator.validateXMLSchema();
@@ -59,7 +76,7 @@ public class OrderController {
             System.out.println("Exception IO: " + e.getMessage());
             model.addAttribute("validationSuccess", "");
             model.addAttribute("validationError", "Error while validating schema " + e.getMessage());
-        } 
+        }
 
         return "index";
     }

@@ -1,22 +1,18 @@
 package com.sipvs.zadanie1.models;
 
-import java.sql.Date;
-
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import com.sipvs.zadanie1.xml.DateAdapter;
+import java.util.List;
 
 @XmlRootElement(name = "form")
 public class Form {
   private String firstName;
   private String lastName;
   private String emailAddreess;
-  private String restaurantAddress;
-  private int restaurantRating;
-  private String restaurantComment;
-  private Date visitDate = new Date(System.currentTimeMillis());
+
+  private List<Rating> ratings;
 
   public String getFirstName() {
     return firstName;
@@ -45,51 +41,26 @@ public class Form {
     this.emailAddreess = emailAddreess;
   }
 
-  public String getRestaurantAddress() {
-    return restaurantAddress;
+  public List<Rating> getRatings() {
+    return ratings;
   }
 
-  @XmlElement(name = "restaurant-address")
-  public void setRestaurantAddress(String restaurantAddress) {
-    this.restaurantAddress = restaurantAddress;
-  }
-
-  public int getRestaurantRating() {
-    return restaurantRating;
-  }
-
-  @XmlElement(name = "restaurant-rating")
-  public void setRestaurantRating(int restaurantRating) {
-    this.restaurantRating = restaurantRating;
-  }
-
-  public String getRestaurantComment() {
-    return restaurantComment;
-  }
-
-  @XmlElement(name = "restaurant-comment")
-  public void setRestaurantComment(String restaurantComment) {
-    this.restaurantComment = restaurantComment;
-  }
-
-  public Date getVisitDate() {
-    return visitDate;
-  }
-
-  @XmlElement(name = "visit-date")
-  @XmlJavaTypeAdapter(DateAdapter.class)
-  public void setVisitDate(Date visitDate) {
-    this.visitDate = visitDate;
+  @XmlElementWrapper(name = "ratings")
+  @XmlElement(name = "rating")
+  public void setRatings(List<Rating> ratings) {
+    this.ratings = ratings;
   }
 
   public String getContent() {
+    String ratingsText = "";
+    for (Rating r : ratings) {
+      ratingsText += r.getContent();
+    }
+
     return "First name: " + firstName + "\n" +
         "Last name: " + lastName + "\n" +
         "Email address: " + emailAddreess + "\n" +
-        "Restaurant address: " + restaurantAddress + "\n" +
-        "Restaurant rating: " + restaurantRating + "\n" +
-        "Restaurant comment: " + restaurantComment + "\n" +
-        "Visit date: " + visitDate + "\n";
+        "Repeating section: \n" + ratingsText + "\n";
   }
 
 }
