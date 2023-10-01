@@ -17,18 +17,14 @@ public class XSDValidator {
     private static String XML_PATH = "form.xml";
 
 
-    public static boolean validateXMLSchema(){
+    public static void validateXMLSchema() throws SAXException, IOException{
         
-        try {
-            SchemaFactory factory = 
-                    SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = factory.newSchema(new File(XSD_PATH));
-            Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(new File(XML_PATH)));
-        } catch (IOException | SAXException e) {
-            System.out.println("Exception: " + e.getMessage());
-            return false;
-        }
-        return true;
+        
+        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema schema = factory.newSchema(new File(XSD_PATH));
+        Validator validator = schema.newValidator();
+        validator.validate(new StreamSource(new File(XML_PATH)));
+            
+        
     }
 }

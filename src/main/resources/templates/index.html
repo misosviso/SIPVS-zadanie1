@@ -24,8 +24,12 @@
 
         <p><input type="submit" value="Generate XML" formaction="/generate" /></p>
         <p><input type="submit" value="Validate XML" formaction="/validate" /></p>
+        <p><span th:text="${validationSuccess}" style="color:green"/></p>
+        <p><span th:text="${validationError}" style="color:red"/></p>
+
         <p><input type="submit" value="Generate HTML" formaction="/html" /></p>
     </form>
+   
 </body>
 
 </html>

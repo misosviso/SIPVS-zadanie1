@@ -1,10 +1,13 @@
 package com.sipvs.zadanie1.controllers;
 
+import java.io.IOException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.xml.sax.SAXException;
 
 import com.sipvs.zadanie1.models.Form;
 import com.sipvs.zadanie1.xml.XMLGenerator;
@@ -43,7 +46,20 @@ public class OrderController {
         model.addAttribute("form", form);
         System.out.println(form.getContent());
 
-        XSDValidator.validateXMLSchema();
+
+
+        try {
+            XSDValidator.validateXMLSchema();
+            model.addAttribute("validationSuccess", "The XML is valid");
+            model.addAttribute("validationError", "");
+        } catch (SAXException e) {
+            model.addAttribute("validationSuccess", "");
+            model.addAttribute("validationError", e.getMessage().split(":")[1]);
+        } catch (IOException e) {
+            System.out.println("Exception IO: " + e.getMessage());
+            model.addAttribute("validationSuccess", "");
+            model.addAttribute("validationError", "Error while validating schema " + e.getMessage());
+        } 
 
         return "index";
     }
