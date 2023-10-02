@@ -76,7 +76,7 @@ public class OrderController {
             model.addAttribute("validationError", "");
         } catch (SAXException e) {
             model.addAttribute("validationSuccess", "");
-            model.addAttribute("validationError", e.getMessage().split(":")[1]);
+            model.addAttribute("validationError", e.getMessage());
         } catch (IOException e) {
             System.out.println("Exception IO: " + e.getMessage());
             model.addAttribute("validationSuccess", "");
