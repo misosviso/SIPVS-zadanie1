@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <form xmlns="http://sipvs-projekt.com/sipvs-namespace">
-    <email-address></email-address>
-    <first-name></first-name>
-    <last-name></last-name>
+    <email-address>petersmrecek@gmail.com</email-address>
+    <first-name>Peter</first-name>
+    <last-name>Smreček</last-name>
     <ratings>
         <rating review_id="1">
-            <restaurant-address></restaurant-address>
-            <restaurant-comment></restaurant-comment>
+            <restaurant-address>1</restaurant-address>
+            <restaurant-comment>52</restaurant-comment>
             <restaurant-rating>5</restaurant-rating>
             <visit-date>2023-10-02</visit-date>
         </rating>
         <rating review_id="2">
-            <restaurant-address></restaurant-address>
-            <restaurant-comment></restaurant-comment>
-            <restaurant-rating>5</restaurant-rating>
+            <restaurant-address>2</restaurant-address>
+            <restaurant-comment>75ň7</restaurant-comment>
+            <restaurant-rating>4</restaurant-rating>
             <visit-date>2023-10-02</visit-date>
         </rating>
         <rating review_id="3">
-            <restaurant-address></restaurant-address>
-            <restaurant-comment></restaurant-comment>
+            <restaurant-address>3</restaurant-address>
+            <restaurant-comment>www</restaurant-comment>
+            <restaurant-rating>5</restaurant-rating>
+            <visit-date>2023-10-02</visit-date>
+        </rating>
+        <rating review_id="4">
+            <restaurant-address>4</restaurant-address>
+            <restaurant-comment>jyjezttjzethaethaethatejaetejytjyj</restaurant-comment>
+            <restaurant-rating>5</restaurant-rating>
+            <visit-date>2023-10-02</visit-date>
+        </rating>
+        <rating review_id="5">
+            <restaurant-address>5</restaurant-address>
+            <restaurant-comment>3737378</restaurant-comment>
             <restaurant-rating>5</restaurant-rating>
             <visit-date>2023-10-02</visit-date>
         </rating>

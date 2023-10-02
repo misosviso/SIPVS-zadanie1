@@ -34,11 +34,12 @@
             <div id="ratings" th:each="ratingItem, ratingItemStat : *{ratings}">
                 <div class="rating">
                     <p>Restaurant Address: <input type="text" th:field="*{ratings[__${ratingItemStat.index}__].restaurantAddress}" /></p>
-                    <p>Restaurant Rating: <input type="text" th:field="*{ratings[__${ratingItemStat.index}__].restaurantRating}" /></p>
+                    <p>Restaurant Rating: <input type="text" th:field="*{ratings[__${ratingItemStat.index}__].restaurantRating}" oninput="validateRating(this)" /></p>
                     <p>Restaurant Comment: <input type="text" th:field="*{ratings[__${ratingItemStat.index}__].restaurantComment}" /></p>
                     <p>Visit Date: <input type="date" th:field="*{ratings[__${ratingItemStat.index}__].visitDate}" /></p>
                 </div>
             </div>
+            <span id="rating-error-message" style="color:red;"></span>
             <p><input type="submit" value="Add Rating Section" onclick="addRatingSection()" formaction="/add" /></p>
         </div>
 
@@ -51,14 +52,27 @@
     </form>
 
     <script>
+        function validateRating(input) {
+            var rating = input.value;
+            var errorMessage = document.getElementById("rating-error-message");
+
+            if (rating < 1 || rating > 5) {
+                errorMessage.textContent = "Rating must be between 1 and 5.";
+                // document.getElementById("mainForm").querySelector('[type="submit"]').disabled = true;
+            } else {
+                errorMessage.textContent = "";
+                // document.getElementById("mainForm").querySelector('[type="submit"]').disabled = false;
+            }
+        }
+
         function addRatingSection() {
             var ratingsDiv = document.getElementById("ratings");
-            var newIndex = ratingsDiv.children.length; // Get the index for the new review item
+            var newIndex = ratingsDiv.children.length;
             var newSection = document.createElement("div");
             newSection.className = "rating";
             newSection.innerHTML = `
                 <p>Restaurant Address: <input type="text" name="form.ratings[${newIndex}].restaurantAddress" /></p>
-                <p>Restaurant Rating: <input type="text" name="form.ratings[${newIndex}].restaurantRating" /></p>
+                <p>Restaurant Rating: <input type="text" name="form.ratings[${newIndex}].restaurantRating" oninput="validateRating(this)" /></p>
                 <p>Restaurant Comment: <input type="text" name="form.ratings[${newIndex}].restaurantComment" /></p>
                 <p>Visit Date: <input type="date" name="form.ratings[${newIndex}].visitDate" /></p>
             `;
