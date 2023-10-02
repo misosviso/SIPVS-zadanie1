@@ -1,5 +1,6 @@
 package com.sipvs.zadanie1.models;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,8 +12,14 @@ public class Form {
   private String firstName;
   private String lastName;
   private String emailAddreess;
+  private String namespace = "http://sipvs-projekt.com/sipvs-namespace";
 
   private List<Rating> ratings;
+
+  @XmlAttribute(name = "xmlns")
+  public String getNamespace() {
+    return namespace;
+  }
 
   public String getFirstName() {
     return firstName;

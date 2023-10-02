@@ -2,6 +2,7 @@ package com.sipvs.zadanie1.models;
 
 import java.sql.Date;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -9,9 +10,19 @@ import com.sipvs.zadanie1.xml.DateAdapter;
 
 public class Rating {
     private String restaurantAddress = "";
-    private int restaurantRating = 0;
+    private int restaurantRating = 5;
     private String restaurantComment = "";
     private Date visitDate = new Date(System.currentTimeMillis());
+    private int id = 0;
+
+    public int getId() {
+        return id;
+    }
+
+    @XmlAttribute(name = "review_id")
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getRestaurantAddress() {
         return restaurantAddress;

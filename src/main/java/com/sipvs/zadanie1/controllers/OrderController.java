@@ -38,6 +38,11 @@ public class OrderController {
         model.addAttribute("form", form);
         System.out.println(form.getContent());
 
+        // set id for each rating
+        List<Rating> ratings = form.getRatings();
+        for (int i = 0; i < ratings.size(); i++) {
+            ratings.get(i).setId(i + 1);
+        }
         // Generate XML 
         XMLGenerator.generate(form);
 
