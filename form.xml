@@ -5,34 +5,22 @@
     <last-name>Smreček</last-name>
     <ratings>
         <rating review_id="1">
-            <restaurant-address>1</restaurant-address>
-            <restaurant-comment>52</restaurant-comment>
+            <restaurant-address>Hviezdoslavova 4, 911 01 Trenčín</restaurant-address>
+            <restaurant-comment>Skvelé</restaurant-comment>
             <restaurant-rating>5</restaurant-rating>
-            <visit-date>2023-10-02</visit-date>
+            <visit-date>2023-08-07</visit-date>
         </rating>
         <rating review_id="2">
-            <restaurant-address>2</restaurant-address>
-            <restaurant-comment>75ň7</restaurant-comment>
+            <restaurant-address>Jozefa Braneckého 3, 911 01 Trenčín</restaurant-address>
+            <restaurant-comment>Super</restaurant-comment>
             <restaurant-rating>4</restaurant-rating>
-            <visit-date>2023-10-02</visit-date>
+            <visit-date>2023-09-15</visit-date>
         </rating>
         <rating review_id="3">
-            <restaurant-address>3</restaurant-address>
-            <restaurant-comment>www</restaurant-comment>
-            <restaurant-rating>5</restaurant-rating>
-            <visit-date>2023-10-02</visit-date>
-        </rating>
-        <rating review_id="4">
-            <restaurant-address>4</restaurant-address>
-            <restaurant-comment>jyjezttjzethaethaethatejaetejytjyj</restaurant-comment>
-            <restaurant-rating>5</restaurant-rating>
-            <visit-date>2023-10-02</visit-date>
-        </rating>
-        <rating review_id="5">
-            <restaurant-address>5</restaurant-address>
-            <restaurant-comment>3737378</restaurant-comment>
-            <restaurant-rating>5</restaurant-rating>
-            <visit-date>2023-10-02</visit-date>
+            <restaurant-address>Zlatovská 2763  911 05 Trenčín – Zlatovce</restaurant-address>
+            <restaurant-comment>Priemerná</restaurant-comment>
+            <restaurant-rating>3</restaurant-rating>
+            <visit-date>2023-10-03</visit-date>
         </rating>
     </ratings>
 </form>
