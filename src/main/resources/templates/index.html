@@ -3,6 +3,7 @@
 <script src="https://www.slovensko.sk/static/zep/dbridge_js/v1.0/config.js"></script>
 <script src="https://www.slovensko.sk/static/zep/dbridge_js/v1.0/dCommon.min.js"></script>
 <script src="https://www.slovensko.sk/static/zep/dbridge_js/v1.0/dSigXades.min.js"></script>
+
 <head>
     <meta charset="utf-8" />
     <title>Review Form</title>
@@ -52,13 +53,12 @@
 
         <p><input type="submit" value="Generate HTML" formaction="/html" /></p>
     </form>
-    <input type="file" id="file-xml" accept=".xml"/>
-    <br>
-    <input type="file" id="file-xsd" accept=".xsd"/>
-    <br>
-    <input type="file" id="file-xsl" accept=".xsl"/>
-    <br>
-    <input type="file" id="file-pdf" accept=".pdf"/>
+
+    <p>XML <input type="file" id="file-xml" accept=".xml" /></p>
+    <p>XSD <input type="file" id="file-xsd" accept=".xsd" /></p>
+    <p>XSL <input type="file" id="file-xsl" accept=".xsl" /></p>
+    <p>PDF <input type="file" id="file-pdf" accept=".pdf" /></p>
+
     <br>
     <button id="sign-button" onclick="sign()"> Sign </button>
     <script>
@@ -91,11 +91,11 @@
 
         // adding signature
         function Callback(onSuccess) {
-				this.onSuccess = onSuccess;
-				this.onError = function(e) {
-					alert("Chyba: " + e);
-				}
-			}	
+            this.onSuccess = onSuccess;
+            this.onError = function(e) {
+                alert("Chyba: " + e);
+            }
+        }
 
         var sign = () => {
             var xml_file = document.getElementById('file-xml').files[0];
@@ -142,7 +142,7 @@
                     }
                 }
             }));
-    
+
             prom_array.push(new Promise((resolve) => {
                 if (pdf_file) {
                     let reader = new FileReader();
@@ -154,13 +154,13 @@
                 }
             }));
 
-            Promise.all(prom_array).then( () => {
-                ditec.dSigXadesJs.deploy(null, new Callback( () => {	
-                    ditec.dSigXadesJs.initialize(new Callback( () => {                
-                        ditec.dSigXadesJs.addXmlObject2( "id_0" , "formular XML" , xml_file_content , xsd_file_content , "http://sipvs-projekt.com/sipvs-namespace" , "http://sipvs-projekt.sk/form.xsd" , xsl_file_content , "http://sipvs-projekt.sk/form.xsl" , "HTML" , new Callback( () => {
-                            ditec.dSigXadesJs.addPdfObject("id_1", "prilozeny PDF subor", pdf_file_content, "", "http://sipvs-projekt.sk/pdf",  0, true, new Callback( () => {
-                                ditec.dSigXadesJs.sign20("id_signature", "http://www.w3.org/2001/04/xmlenc#sha256", "urn:oid:1.3.158.36061701.1.2.3", "id_signature_envelope", "http://sipvs-projekt.sk/signatureEnvelope", "data obalky podpisu", new Callback( () => {
-                                    ditec.dSigXadesJs.getSignedXmlWithEnvelope(new Callback( (output) => {
+            Promise.all(prom_array).then(() => {
+                ditec.dSigXadesJs.deploy(null, new Callback(() => {
+                    ditec.dSigXadesJs.initialize(new Callback(() => {
+                        ditec.dSigXadesJs.addXmlObject2("id_0", "formular XML", xml_file_content, xsd_file_content, "http://sipvs-projekt.com/sipvs-namespace", "http://sipvs-projekt.sk/form.xsd", xsl_file_content, "http://sipvs-projekt.sk/form.xsl", "HTML", new Callback(() => {
+                            ditec.dSigXadesJs.addPdfObject("id_1", "prilozeny PDF subor", pdf_file_content, "", "http://sipvs-projekt.sk/pdf", 0, true, new Callback(() => {
+                                ditec.dSigXadesJs.sign20("id_signature", "http://www.w3.org/2001/04/xmlenc#sha256", "urn:oid:1.3.158.36061701.1.2.3", "id_signature_envelope", "http://sipvs-projekt.sk/signatureEnvelope", "data obalky podpisu", new Callback(() => {
+                                    ditec.dSigXadesJs.getSignedXmlWithEnvelope(new Callback((output) => {
                                         var blob = new Blob([output], {
                                             type: "text/plain",
                                         });
@@ -172,10 +172,10 @@
                                     }));
                                 }));
                             }));
-                        })); 
+                        }));
                     }));
                 }));
-            })				
+            })
         };
     </script>
 
