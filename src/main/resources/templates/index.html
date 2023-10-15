@@ -103,6 +103,11 @@
             var xsl_file = document.getElementById('file-xsl').files[0];
             var pdf_file = document.getElementById('file-pdf').files[0];
 
+            if (!xml_file || !xsd_file || !xsl_file || !pdf_file) {
+                alert("Please select all files.");
+                return;
+            }
+
             var xml_file_content = null;
             var xsd_file_content = null;
             var xsl_file_content = null;
