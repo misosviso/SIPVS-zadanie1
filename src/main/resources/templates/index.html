@@ -52,6 +52,9 @@
         <p><span th:text="${validationError}" style="color:red" /></p>
 
         <p><input type="submit" value="Generate HTML" formaction="/html" /></p>
+
+        <p><input type="submit" value="Add Timestamp" formaction="/timestamp" /></p>
+
     </form>
 
     <p>XML <input type="file" id="file-xml" accept=".xml" /></p>
@@ -61,6 +64,8 @@
 
     <br>
     <button id="sign-button" onclick="sign()"> Sign </button>
+
+
     <script>
         function validateRating(input) {
             var rating = input.value;
