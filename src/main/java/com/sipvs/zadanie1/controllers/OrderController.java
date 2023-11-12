@@ -5,14 +5,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Base64;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.nio.file.Files;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 
 import org.bouncycastle.crypto.Digest;
 import org.bouncycastle.crypto.digests.SHA256Digest;
@@ -36,6 +40,9 @@ import com.sipvs.zadanie1.xml.Timestamp;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import org.xml.sax.InputSource;
+import org.apache.xml.security.c14n.Canonicalizer;
 
 @Controller
 public class OrderController {
@@ -115,20 +122,18 @@ public class OrderController {
 
     // Add Timestamp
     @PostMapping("/timestamp")
-    public String timestamp(@ModelAttribute Form form, Model model) {
-        System.out.println("Timestamp");
+    public String timestamp(@ModelAttribute Form form, Model model) throws ParserConfigurationException, IOException, SAXException, TransformerException {
 
-        File file = new File("signed.xml");
-        byte[] signature = null;
-        try {
-            signature = Files.readAllBytes(file.toPath());
-        } catch (Exception e) {
-            System.out.println("Exception: " + e.getMessage());
-        }
+        File xmlFile = new File("signed.xml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.parse(xmlFile);
 
-        // byte[] signature = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        String signatureValue = document.getElementsByTagName("ds:SignatureValue").item(0).getTextContent();
+        byte[] signatureValueBytes = signatureValue.getBytes();
+
         Digest digest = new SHA256Digest();
-        digest.update(signature, 0, signature.length);
+        digest.update(signatureValueBytes, 0, signatureValueBytes.length);
         byte[] signatureDigest = new byte[digest.getDigestSize()];
         int outOff = 0;
         digest.doFinal(signatureDigest, outOff);
@@ -137,8 +142,7 @@ public class OrderController {
         tsRequestGenerator.setCertReq(true);
         TimeStampRequest tsRequest = tsRequestGenerator.generate(TSPAlgorithms.SHA256, signatureDigest);
 
-        Timestamp ts = new Timestamp(); // Assuming you have translated the C# Timestamp class to Java as shown in the
-                                        // previous response
+        Timestamp ts = new Timestamp(); 
 
         try {
             System.out.println("Encoded: " + tsRequest.getEncoded());
@@ -151,13 +155,31 @@ public class OrderController {
             // Convert timestamp to base64 encoded string
             byte[] timeStampToken = tsResponse.getEncoded();
             String base64TimeStamp = Base64.getEncoder().encodeToString(timeStampToken);
+            // System.out.println(base64TimeStamp);
 
-            // Load the XML file
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document xmlDocument = documentBuilder.parse(new File("signed.xml"));
+            Element encapsulatedTimeStamp = document.createElement("xades:EncapsulatedTimeStamp");
+            encapsulatedTimeStamp.appendChild(document.createTextNode(base64TimeStamp));
 
-            // TODO
+            Element signatureTimestamp = document.createElement("xades:SignatureTimeStamp");
+            signatureTimestamp.setAttribute("Id", "timeStampID1" );
+            signatureTimestamp.appendChild(encapsulatedTimeStamp);
+            
+            Element unsignedSignatureProperties = document.createElement("xades:UnsignedSignatureProperties");
+            unsignedSignatureProperties.appendChild(signatureTimestamp);
+
+            Element unsignedProperties = document.createElement("xades:UnsignedProperties");
+            unsignedProperties.appendChild(unsignedSignatureProperties);
+            
+            document.getElementsByTagName("xades:QualifyingProperties").item(0).appendChild(unsignedProperties);
+
+            Canonicalizer.getInstance(Canonicalizer.ALGO_ID_C14N_WITH_COMMENTS).canonicalizeSubtree(doc)
+
+            DOMSource xmlSource = new DOMSource(document);
+            StreamResult result = new StreamResult(new FileOutputStream("stamped.xml"));
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            transformer.transform(xmlSource, result);
 
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
