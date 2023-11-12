@@ -1,6 +1,7 @@
 package com.sipvs.zadanie1.controllers;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Base64;
@@ -172,7 +173,10 @@ public class OrderController {
             
             document.getElementsByTagName("xades:QualifyingProperties").item(0).appendChild(unsignedProperties);
 
-            Canonicalizer.getInstance(Canonicalizer.ALGO_ID_C14N_WITH_COMMENTS).canonicalizeSubtree(doc)
+            /*org.apache.xml.security.Init.init();
+            byte[] canonicalized = Canonicalizer.getInstance("http://www.w3.org/TR/2001/REC-xml-c14n-20010315").canonicalizeSubtree(document);
+            OutputStream outStream = new FileOutputStream("stamped.xml");
+            outStream.write(canonicalized);*/
 
             DOMSource xmlSource = new DOMSource(document);
             StreamResult result = new StreamResult(new FileOutputStream("stamped.xml"));
