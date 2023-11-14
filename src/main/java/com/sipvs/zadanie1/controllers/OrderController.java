@@ -48,6 +48,25 @@ import org.apache.xml.security.c14n.Canonicalizer;
 @Controller
 public class OrderController {
 
+    public void xmlCopy(String sourcePath, String destinationPath) {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(new File(sourcePath));
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+
+            DOMSource source = new DOMSource(document);
+            StreamResult result = new StreamResult(new File(destinationPath));
+            transformer.transform(source, result);
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+            System.out.println("Exception: " + e.getStackTrace());
+            e.printStackTrace();
+        }
+    }
+
     // View
     @GetMapping("/")
     public String home(Model model) {
@@ -123,8 +142,10 @@ public class OrderController {
 
     // Add Timestamp
     @PostMapping("/timestamp")
-    public String timestamp(@ModelAttribute Form form, Model model) throws ParserConfigurationException, IOException, SAXException, TransformerException {
-
+    public String timestamp(@ModelAttribute Form form, Model model)
+            throws ParserConfigurationException, IOException, SAXException, TransformerException {
+        
+        xmlCopy("signed.xml", "signed.xml");
         File xmlFile = new File("signed.xml");
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -143,7 +164,7 @@ public class OrderController {
         tsRequestGenerator.setCertReq(true);
         TimeStampRequest tsRequest = tsRequestGenerator.generate(TSPAlgorithms.SHA256, signatureDigest);
 
-        Timestamp ts = new Timestamp(); 
+        Timestamp ts = new Timestamp();
 
         try {
             System.out.println("Encoded: " + tsRequest.getEncoded());
@@ -162,21 +183,16 @@ public class OrderController {
             encapsulatedTimeStamp.appendChild(document.createTextNode(base64TimeStamp));
 
             Element signatureTimestamp = document.createElement("xades:SignatureTimeStamp");
-            signatureTimestamp.setAttribute("Id", "timeStampID1" );
+            signatureTimestamp.setAttribute("Id", "timeStampID1");
             signatureTimestamp.appendChild(encapsulatedTimeStamp);
-            
+
             Element unsignedSignatureProperties = document.createElement("xades:UnsignedSignatureProperties");
             unsignedSignatureProperties.appendChild(signatureTimestamp);
 
             Element unsignedProperties = document.createElement("xades:UnsignedProperties");
             unsignedProperties.appendChild(unsignedSignatureProperties);
-            
-            document.getElementsByTagName("xades:QualifyingProperties").item(0).appendChild(unsignedProperties);
 
-            /*org.apache.xml.security.Init.init();
-            byte[] canonicalized = Canonicalizer.getInstance("http://www.w3.org/TR/2001/REC-xml-c14n-20010315").canonicalizeSubtree(document);
-            OutputStream outStream = new FileOutputStream("stamped.xml");
-            outStream.write(canonicalized);*/
+            document.getElementsByTagName("xades:QualifyingProperties").item(0).appendChild(unsignedProperties);
 
             DOMSource xmlSource = new DOMSource(document);
             StreamResult result = new StreamResult(new FileOutputStream("stamped.xml"));
